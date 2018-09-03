@@ -1,5 +1,7 @@
 package com.web;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.KlovReporter;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -15,11 +17,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Stepdefs {
 
     private WebDriver driver;
+    public static ExtentReports extentReports;
 
     @Before
     public void initWebDriver() {
         System.setProperty("webdriver.gecko.driver", "/Users/willyaguirre/Documents/opensource/geckodriver");
         driver = new FirefoxDriver();
+
+        KlovReporter klovReporter = new KlovReporter();
+
+        klovReporter.initMongoDbConnection("localhost", 27017);
+
+        klovReporter.setProjectName("SWTESTACADEMY");
+
+        klovReporter.setReportName("1.4");
+
+        klovReporter.setKlovUrl("http://localhost:9000");
+
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(klovReporter);
+
     }
 
     @Given("^I am on the Google search page$")
@@ -51,6 +68,7 @@ public class Stepdefs {
     @After()
     public void closeBrowser() {
         driver.quit();
+        extentReports.flush();
     }
 
 }

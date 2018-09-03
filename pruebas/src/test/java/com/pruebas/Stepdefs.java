@@ -1,10 +1,10 @@
 package com.pruebas;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import static org.junit.Assert.*;
+import cucumber.api.java.en.When;
+
+import static org.junit.Assert.assertEquals;
 
 class IsItFriday {
     static  String isItFriday(String today) {
